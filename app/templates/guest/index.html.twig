@@ -1,0 +1,33 @@
+{# templates/guest.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Гости{% endblock %}
+
+{% block body %}
+    <h1>Список гостей</h1>
+    <table>
+        <thead>
+        <tr><td><a href="{{ path('home') }}">Назад</a></td></tr>
+        <tr>
+            <th>Номер</th>
+            <th>Имя</th>
+            <th>Телефон</th>
+            <th>-</th>
+            <th>-</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for guest in guests %}
+            <tr>
+                <td>{{ guest.id }}</td>
+                <td>{{ guest.name }}</td>
+                <td>{{ guest.phoneNumber }}</td>
+                <td><a href="{{ path('edit_guest', {'id': guest.id}) }}">Редактировать</a></td>
+                <td><a href="{{ path('delete_guest', {'id': guest.id}) }}" onclick="return confirm('Вы уверены, что хотите удалить этого гостя?')">Удалить</a></td>
+            </tr>
+        {% endfor %}
+        <tr><td><a href="{{ path('new_guest') }}">Добавить</a></td></tr>
+        </tbody>
+    </table>
+{% endblock %}

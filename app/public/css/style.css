@@ -1,0 +1,37 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-weight: 400;
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    background-color: #fafafa;
+}
+
+td, th {
+    padding: .5rem;
+}
+
+th, input, button {
+    text-align: left;
+    font-weight: 300;
+    font-size: 1.25rem;
+}
+input, button {
+    padding: 0 0.5rem;
+}
+
+td, input, button { font-family: 'Avenir Next', 'Segoe UI', 'Lucida Grande', sans-serif; }
+
+table {
+    width: 70%;
+    padding: 1rem;
+    margin: auto;
+}
+
+h1, h4 {
+    margin: 50px auto 50px auto;
+    text-align: center;
+}

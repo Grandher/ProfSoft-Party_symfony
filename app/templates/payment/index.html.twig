@@ -1,0 +1,37 @@
+{# templates/payment.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Платежи{% endblock %}
+
+{% block body %}
+    <h1>Список платежей</h1>
+    <table>
+        <thead>
+        <tr><td><a href="{{ path('home') }}">Назад</a></td></tr>
+        <tr>
+            <th>Номер</th>
+            <th>Дата</th>
+            <th>Сумма</th>
+            <th>Сделавший платеж</th>
+            <th>Получивший платеж</th>
+            <th>-</th>
+            <th>-</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for payment in payments %}
+            <tr>
+                <td>{{ payment.id }}</td>
+                <td>{{ payment.date|date('Y-m-d H:i:s') }}</td>
+                <td>{{ payment.amount }}</td>
+                <td>{{ payment.guestDeclared.name }}</td>
+                <td>{{ payment.guestReceived.name }}</td>
+                <td><a href="{{ path('edit_payment', {'id': payment.id}) }}">Редактировать</a></td>
+                <td><a href="{{ path('delete_payment', {'id': payment.id}) }}" onclick="return confirm('Вы уверены, что хотите удалить этот продукт?')">Удалить</a></td>
+            </tr>
+        {% endfor %}
+        <tr><td><a href="{{ path('new_payment') }}">Добавить</a></td></tr>
+        </tbody>
+    </table>
+{% endblock %}

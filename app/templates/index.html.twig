@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Вечеринка{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Добро пожаловать</h1>
+
+    Таблицы сущностей:
+    <ul>
+        <li><a href="{{ path('product_list') }}">Продукты</a></li>
+        <li><a href="{{ path('guest_list') }}">Гости</a></li>
+        <li><a href="{{ path('receipt_list') }}">Чеки</a></li>
+        <li><a href="{{ path('payment_list') }}">Платежи</a></li>
+    </ul>
+    <br>
+    <a href="{{ path('app_login') }}">Вход</a><br>
+    <a href="{{ path('app_register') }}">Регистрация</a>
+</div>
+{% endblock %}

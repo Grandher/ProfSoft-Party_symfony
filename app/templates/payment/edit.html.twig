@@ -1,0 +1,21 @@
+{# templates/product/edit.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    <h1>{{ title }}</h1>
+
+    {# Форма для редактирования продукта #}
+    {{ form_start(form) }}
+    <table>
+        <tr><td><a href="{{ path('payment_list') }}">Назад</a></td></tr>
+        <tr><td>{{ form_row(form.date) }}</td></tr>
+        <tr><td>{{ form_row(form.amount) }}</td></tr>
+        <tr><td>{{ form_row(form.guestDeclared) }}</td></tr>
+        <tr><td>{{ form_row(form.guestReceived) }}</td></tr>
+        <tr><td><button type="submit">Сохранить</button></td></tr>
+    </table>
+    {{ form_end(form) }}
+{% endblock %}

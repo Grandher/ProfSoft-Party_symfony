@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block body %}
+    <h1>Регистрация</h1>
+
+    {{ form_errors(registrationForm) }}
+
+    {{ form_start(registrationForm) }}
+    <table>
+
+
+
+        <tr><th>{{ form_row(registrationForm.username, {
+                    label: 'Логин'
+                }) }}</th></tr>
+        <tr><th>{{ form_row(registrationForm.plainPassword, {
+                    label: 'Пароль'
+                }) }}</th></tr>
+        <tr><th>{{ form_row(registrationForm.agreeTerms, {
+                    label: 'Принимаю условия'
+                }) }}</th></tr>
+        <tr><th><button type="submit" class="btn">Подтвердить</button></th></tr>
+        <tr><th><a href="{{ path('app_login') }}">Войти</a></th></tr>
+    </table>
+    {{ form_end(registrationForm) }}
+
+
+{% endblock %}
