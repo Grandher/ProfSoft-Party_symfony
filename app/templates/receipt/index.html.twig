@@ -24,9 +24,13 @@
                 <td>{{ receipt.id }}</td>
                 <td>{{ receipt.date|date('Y-m-d H:i:s') }}</td>
                 <td>{{ receipt.store }}</td>
-                <td>{{ receipt.guest.name }}</td>
+                <td>
+                    {% if receipt.guest %}
+                        {{ receipt.guest.name }}
+                    {% endif %}
+                </td>
                 <td><a href="{{ path('edit_receipt', {'id': receipt.id}) }}">Редактировать</a></td>
-                <td><a href="{{ path('delete_receipt', {'id': receipt.id}) }}" onclick="return confirm('Вы уверены, что хотите удалить этот продукт?')">Удалить</a></td>
+                <td><a href="{{ path('delete_receipt', {'id': receipt.id}) }}" onclick="return confirm('Вы уверены, что хотите удалить этот чек?')">Удалить</a></td>
             </tr>
         {% endfor %}
         <tr><td><a href="{{ path('new_receipt') }}">Добавить</a></td></tr>

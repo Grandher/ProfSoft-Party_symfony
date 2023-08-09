@@ -25,10 +25,18 @@
                 <td>{{ payment.id }}</td>
                 <td>{{ payment.date|date('Y-m-d H:i:s') }}</td>
                 <td>{{ payment.amount }}</td>
-                <td>{{ payment.guestDeclared.name }}</td>
-                <td>{{ payment.guestReceived.name }}</td>
+                <td>
+                    {% if payment.guestDeclared %}
+                        {{ payment.guestDeclared.name }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if payment.guestReceived %}
+                        {{ payment.guestReceived.name }}
+                    {% endif %}
+                </td>
                 <td><a href="{{ path('edit_payment', {'id': payment.id}) }}">Редактировать</a></td>
-                <td><a href="{{ path('delete_payment', {'id': payment.id}) }}" onclick="return confirm('Вы уверены, что хотите удалить этот продукт?')">Удалить</a></td>
+                <td><a href="{{ path('delete_payment', {'id': payment.id}) }}" onclick="return confirm('Вы уверены, что хотите удалить этот платеж?')">Удалить</a></td>
             </tr>
         {% endfor %}
         <tr><td><a href="{{ path('new_payment') }}">Добавить</a></td></tr>
