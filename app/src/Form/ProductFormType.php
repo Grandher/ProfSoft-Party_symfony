@@ -20,11 +20,13 @@ class ProductFormType extends AbstractType
             ->add('receipt', EntityType::class, [
                 'class' => Receipt::class,
                 'choice_label' => 'id',
-                'label' => 'Номер чека',
-                'multiple' => false,
+                'label' => 'Выбрать существующий чек',
+                //'required' => false, // Поле необязательное
+                //'mapped' => false, // Не привязываем к полю сущности
             ])
-            //->add('guests')
-            //->add('receipt')
+            /*->add('receipt', ReceiptFormType::class, [
+                'label' => false,
+            ])*/
         ;
     }
 

@@ -13,7 +13,64 @@
         <tr><td>{{ form_row(form.date) }}</td></tr>
         <tr><td>{{ form_row(form.store) }}</td></tr>
         <tr><td>{{ form_row(form.guest) }}</td></tr>
+
+
+        <tr class="products"
+            data-index="{{ form.products|length > 0 ? form.products|last.vars.name + 1 : 0 }}"
+            data-prototype="{{ form_widget(form.products.vars.prototype)|e('html_attr') }}">
+            <th><button type="button" class="add_item_link" data-collection-holder-class="products">Добавить продукт</button></th>
+
+            {% for product in form.products %}
+                <td>{{ form_row(product) }}</td>
+            {% endfor %}
+
+        </tr>
+
         <tr><td><button type="submit">Сохранить</button></td></tr>
+
     </table>
+
     {{ form_end(form) }}
+    <script>
+        document
+            .querySelectorAll('.add_item_link')
+            .forEach(btn => {
+                btn.addEventListener("click", function (e) {
+                    const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+
+                    const item = document.createElement('td');
+
+                    item.innerHTML = collectionHolder
+                        .dataset
+                        .prototype
+                        .replace(
+                            /__name__/g,
+                            collectionHolder.dataset.index
+                        );
+
+                    addTagFormDeleteLink(item);
+
+                    collectionHolder.appendChild(item);
+
+                    collectionHolder.dataset.index++;
+                })
+            });
+
+        const addTagFormDeleteLink = (item) => {
+            const removeFormButton = document.createElement('button');
+            removeFormButton.innerText = 'Удалить продукт';
+
+            item.append(removeFormButton);
+
+            removeFormButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                item.remove();
+            });
+        }
+        document
+            .querySelectorAll('tr.products td')
+            .forEach((item) => {
+                addTagFormDeleteLink(item);
+            })
+    </script>
 {% endblock %}

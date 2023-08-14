@@ -13,6 +13,7 @@
             <th>Номер</th>
             <th>Имя</th>
             <th>Телефон</th>
+            <th>Автор</th>
             <th>-</th>
             <th>-</th>
         </tr>
@@ -23,6 +24,11 @@
                 <td>{{ guest.id }}</td>
                 <td>{{ guest.name }}</td>
                 <td>{{ guest.phoneNumber }}</td>
+                <td>
+                    {% if guest.author %}
+                        {{ guest.author.username }}
+                    {% endif %}
+                </td>
                 <td><a href="{{ path('edit_guest', {'id': guest.id}) }}">Редактировать</a></td>
                 <td><a href="{{ path('delete_guest', {'id': guest.id}) }}" onclick="return confirm('Вы уверены, что хотите удалить этого гостя?')">Удалить</a></td>
             </tr>

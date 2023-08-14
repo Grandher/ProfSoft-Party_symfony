@@ -15,6 +15,7 @@
             <th>Цена</th>
             <th>Вес</th>
             <th>Номер чека</th>
+            <th>Автор</th>
             <th>-</th>
             <th>-</th>
         </tr>
@@ -26,11 +27,18 @@
                 <td>{{ product.name }}</td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.quantity }}</td>
+
                 <td>
                     {% if product.receipt %}
                         {{ product.receipt.id }}
                     {% endif %}
                 </td>
+                <td>
+                    {% if product.author %}
+                        {{ product.author.username }}
+                    {% endif %}
+                </td>
+
                 <td><a href="{{ path('edit_product', {'id': product.id}) }}">Редактировать</a></td>
                 <td><a href="{{ path('delete_product', {'id': product.id}) }}" onclick="return confirm('Вы уверены, что хотите удалить этот продукт?')">Удалить</a></td>
             </tr>

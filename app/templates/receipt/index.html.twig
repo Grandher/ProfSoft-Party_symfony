@@ -14,6 +14,7 @@
             <th>Дата</th>
             <th>Магазин</th>
             <th>Гость</th>
+            <th>Автор</th>
             <th>-</th>
             <th>-</th>
         </tr>
@@ -27,6 +28,11 @@
                 <td>
                     {% if receipt.guest %}
                         {{ receipt.guest.name }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if receipt.author %}
+                        {{ receipt.author.username }}
                     {% endif %}
                 </td>
                 <td><a href="{{ path('edit_receipt', {'id': receipt.id}) }}">Редактировать</a></td>

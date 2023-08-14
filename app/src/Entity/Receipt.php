@@ -22,11 +22,11 @@ class Receipt
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $store = null;
 
-    #[ORM\ManyToOne(inversedBy: 'receipts')]
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'receipts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Guest $guest = null;
 
-    #[ORM\OneToMany(mappedBy: 'receipt', targetEntity: Product::class)]
+    #[ORM\OneToMany(mappedBy: 'receipt', targetEntity: Product::class, cascade: ["persist"])]
     private Collection $products;
 
     #[ORM\ManyToOne(inversedBy: 'receipts')]

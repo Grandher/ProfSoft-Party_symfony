@@ -5,7 +5,6 @@ namespace App\Controller;
 
 // ...
 use App\Entity\Product;
-use App\Entity\User;
 use App\Form\ProductFormType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,18 +20,6 @@ class ProductController extends AbstractController
     public function listProducts(ManagerRegistry $doctrine): Response
     {
         $products = $doctrine->getRepository(Product::class)->findAll();
-
-        /*$entityManager = $doctrine->getManager();
-        $userRepository = $entityManager->getRepository(User::class);
-        $user = $userRepository->findOneBy(['username' => 'admin']); // Используйте нужный вам способ идентификации пользователя
-
-        if ($user) {
-            $adminRole = ['ROLE_ADMIN']; // Можете добавить другие роли, если необходимо
-            $user->setRoles($adminRole);
-
-            $entityManager->flush(); // Обновляем данные в базе данных
-        }*/
-
         return $this->render('product/index.html.twig', [
             'products' => $products,
         ]);
@@ -45,6 +32,7 @@ class ProductController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager = $doctrine->getManager();
             $entityManager->persist($product);
             $entityManager->flush();

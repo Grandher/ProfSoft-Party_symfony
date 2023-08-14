@@ -27,7 +27,7 @@ class Product
     #[ORM\ManyToMany(targetEntity: Guest::class, mappedBy: 'product')]
     private Collection $guests;
 
-    #[ORM\ManyToOne(inversedBy: 'products')]
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'products')]
     private ?Receipt $receipt = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]

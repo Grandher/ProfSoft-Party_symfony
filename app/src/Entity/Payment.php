@@ -20,11 +20,11 @@ class Payment
     #[ORM\Column]
     private ?float $amount = null;
 
-    #[ORM\ManyToOne(inversedBy: 'payments')]
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'payments')]
     #[ORM\JoinColumn(nullable: true)]
     private ?Guest $guestDeclared = null;
 
-    #[ORM\ManyToOne(inversedBy: 'payments')]
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'payments')]
     #[ORM\JoinColumn(nullable: true)]
     private ?Guest $guestReceived = null;
 

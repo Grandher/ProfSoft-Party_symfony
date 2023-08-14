@@ -15,8 +15,22 @@
         <tr><td>{{ form_row(form.price) }}</td></tr>
         <tr><td>{{ form_row(form.quantity) }}</td></tr>
         <tr><td>{{ form_row(form.receipt) }}</td></tr>
+        {# <tr id="newReceiptSection"><td>Или создать новый {{ form_row(form.receipt) }}</td></tr> #}
         <tr><td><button type="submit">Сохранить</button></td></tr>
     </table>
     {{ form_end(form) }}
 
+    {# <script>
+        document.getElementById('newReceiptSection').style.display = 'none';
+        document.getElementById('product_form_currentReceipt').addEventListener('change', function() {
+            if (this.value === '') {
+                document.getElementById('newReceiptSection').style.display = 'block';
+            } else {
+                document.getElementById('newReceiptSection').style.display = 'none';
+            }
+        });
+    </script> #}
+
 {% endblock %}
+
+
