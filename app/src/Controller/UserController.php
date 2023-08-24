@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-#[IsGranted('ROLE_USER')]
+#[IsGranted('ROLE_ADMIN')]
 class UserController extends AbstractController
 {
     #[Route('/users', name: 'user_list')]
@@ -19,23 +19,5 @@ class UserController extends AbstractController
         return $this->render('users.html.twig', [
             'users' => $users,
         ]);
-    }
-
-    #[Route('/giveAdmin', name: 'give_admin')]
-    public function giveAdmin(ManagerRegistry $doctrine): Response
-    {
-        $entityManager = $doctrine->getManager();
-        $userRepository = $entityManager->getRepository(User::class);
-
-        $user = $userRepository->find($this->getUser());
-
-        if ($user) {
-            $adminRole = ['ROLE_ADMIN'];
-            $user->setRoles($adminRole);
-
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('user_list');
     }
 }

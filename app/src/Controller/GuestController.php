@@ -1,77 +1,85 @@
 <?php
 
-// src/Controller/GuestController.php
 namespace App\Controller;
 
-// ...
 use App\Entity\Guest;
 use App\Form\GuestFormType;
-use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\GuestRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+#[Route('/guest')]
 #[IsGranted('ROLE_USER')]
 class GuestController extends AbstractController
 {
-    #[Route('/guests', name: 'guest_list')]
-    public function listGuests(ManagerRegistry $doctrine): Response
+    #[Route('/', name: 'guest_list', methods: ['GET'])]
+    public function index(GuestRepository $guestRepository): Response
     {
-        $guests = $doctrine->getRepository(Guest::class)->findAll();
-
         return $this->render('guest/index.html.twig', [
-            'guests' => $guests,
+            'guests' => $guestRepository->findAll(),
         ]);
     }
-    #[Route('/guest/new', name: 'new_guest')]
-    public function newGuest(Request $request, ManagerRegistry $doctrine): Response
+
+    #[Route('/new', name: 'app_guest_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $guest = new Guest();
         $form = $this->createForm(GuestFormType::class, $guest);
-
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $doctrine->getManager();
             $entityManager->persist($guest);
             $entityManager->flush();
 
-            return $this->redirectToRoute('guest_list');
+            return $this->redirectToRoute('guest_list', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('guest/edit.html.twig', [
-            'form' => $form->createView(),
-            'title' => 'Добавить гостя',
+        return $this->render('guest/new.html.twig', [
+            'guest' => $guest,
+            'form' => $form,
         ]);
     }
-    #[Route('/guest/{id}/edit', name: 'edit_guest')]
+
+    #[Route('/{id}', name: 'app_guest_show', methods: ['GET'])]
+    public function show(Guest $guest): Response
+    {
+        return $this->render('guest/show.html.twig', [
+            'guest' => $guest,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'app_guest_edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function editGuest(Request $request, Guest $guest, ManagerRegistry $doctrine): Response
+    public function edit(Request $request, Guest $guest, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(GuestFormType::class, $guest);
-
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
 
-            $entityManager = $doctrine->getManager();
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('guest_list');
+            return $this->redirectToRoute('guest_list', [], Response::HTTP_SEE_OTHER);
         }
+
         return $this->render('guest/edit.html.twig', [
+            'guest' => $guest,
             'form' => $form,
-            'title' => 'Редактировать гостя',
         ]);
     }
-    #[Route('/guest/{id}/delete', name: 'delete_guest')]
-    #[IsGranted('ROLE_ADMIN')]
-    public function deleteGuest(Guest $guest, ManagerRegistry $doctrine): Response
-    {
-        $entityManager = $doctrine->getManager();
-        $entityManager->remove($guest);
-        $entityManager->flush();
 
-        return $this->redirectToRoute('guest_list');
+    #[Route('/{id}', name: 'app_guest_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
+    public function delete(Request $request, Guest $guest, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$guest->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($guest);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('guest_list', [], Response::HTTP_SEE_OTHER);
     }
 }

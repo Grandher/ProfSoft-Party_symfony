@@ -12,11 +12,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Attributes as OA;
 
 #[IsGranted('ROLE_USER')]
 class ProductController extends AbstractController
 {
-    #[Route('/products', name: 'product_list')]
+    #[Route('/products', name: 'product_list', methods: ['GET'])]
     public function listProducts(ManagerRegistry $doctrine): Response
     {
         $products = $doctrine->getRepository(Product::class)->findAll();
@@ -24,7 +26,8 @@ class ProductController extends AbstractController
             'products' => $products,
         ]);
     }
-    #[Route('/product/new', name: 'new_product')]
+
+    #[Route('/product/new', name: 'new_product', methods: ['GET', 'POST'])]
     public function newProduct(Request $request, ManagerRegistry $doctrine): Response
     {
         $product = new Product();
@@ -45,7 +48,8 @@ class ProductController extends AbstractController
             'title' => 'Добавить продукт',
         ]);
     }
-    #[Route('/product/{id}/edit', name: 'edit_product')]
+
+    #[Route('/product/{id}/edit', name: 'edit_product', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function editProduct(Request $request, Product $product, ManagerRegistry $doctrine): Response
     {
@@ -67,7 +71,7 @@ class ProductController extends AbstractController
             'title' => 'Редактировать продукт',
         ]);
     }
-    #[Route('/product/{id}/delete', name: 'delete_product')]
+    #[Route('/product/{id}/delete', name: 'delete_product', methods: ['GET'])]
     #[IsGranted('ROLE_ADMIN')]
     public function deleteProduct(Product $product, ManagerRegistry $doctrine): Response
     {

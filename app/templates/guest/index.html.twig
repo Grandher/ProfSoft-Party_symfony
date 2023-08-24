@@ -1,22 +1,20 @@
-{# templates/guest.html.twig #}
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Гости{% endblock %}
 
 {% block body %}
     <h1>Список гостей</h1>
-    <table>
+
+    <table class="table">
         <thead>
         <tr><td><a href="{{ path('home') }}">Назад</a></td></tr>
-        <tr>
-            <th>Номер</th>
-            <th>Имя</th>
-            <th>Телефон</th>
-            <th>Автор</th>
-            <th>-</th>
-            <th>-</th>
-        </tr>
+            <tr>
+                <th>Номер</th>
+                <th>Имя</th>
+                <th>Телефон</th>
+                <th>Автор</th>
+                <th>actions</th>
+            </tr>
         </thead>
         <tbody>
         {% for guest in guests %}
@@ -29,11 +27,20 @@
                         {{ guest.author.username }}
                     {% endif %}
                 </td>
-                <td><a href="{{ path('edit_guest', {'id': guest.id}) }}">Редактировать</a></td>
-                <td><a href="{{ path('delete_guest', {'id': guest.id}) }}" onclick="return confirm('Вы уверены, что хотите удалить этого гостя?')">Удалить</a></td>
+                <td>
+                    <a href="{{ path('app_guest_show', {'id': guest.id}) }}">Детали</a>
+                    <a href="{{ path('app_guest_edit', {'id': guest.id}) }}">Редактировать</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Записей не найдено</td>
             </tr>
         {% endfor %}
-        <tr><td><a href="{{ path('new_guest') }}">Добавить</a></td></tr>
+
+        <tr><td><a href="{{ path('app_guest_new') }}">Добавить</a></td></tr>
         </tbody>
     </table>
+
+
 {% endblock %}

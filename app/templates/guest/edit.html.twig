@@ -1,18 +1,13 @@
-{# templates/product/edit.html.twig #}
-
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ title }}{% endblock %}
+{% block title %}Редактировать гостя{% endblock %}
 
 {% block body %}
-    <h1>{{ title }}</h1>
+    <h1>Редактировать гостя</h1>
 
-    {{ form_start(form) }}
-    <table>
-        <tr><td><a href="{{ path('guest_list') }}">Назад</a></td></tr>
-        <tr><td>{{ form_row(form.name) }}</td></tr>
-        <tr><td>{{ form_row(form.phoneNumber) }}</td></tr>
-        <tr><td><button type="submit">Сохранить</button></td></tr>
-    </table>
-    {{ form_end(form) }}
+    {{ include('guest/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('guest_list') }}">Назад</a>
+
+    {{ include('guest/_delete_form.html.twig') }}
 {% endblock %}
