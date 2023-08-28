@@ -45,4 +45,21 @@ final class ProductService implements ProductServiceInterface
 
         $this->entityManager->remove($product);
     }
+
+
+    // TODO: пример сервисной логики по получению всех товаров, по аналогии перенести всю логику из контроллеров в сервисный слой
+    public function getProducts(): array
+    {
+        $products = $this->entityManager->getRepository(Product::class)->findAll();
+        $data = [];
+
+        foreach ($products as $product) {
+            $data[] = [
+                'id' => $product->getId(),
+                'name' => $product->getName(),
+            ];
+        }
+
+        return $data;
+    }
 }

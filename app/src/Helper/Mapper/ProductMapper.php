@@ -18,6 +18,7 @@ final class ProductMapper implements MapperInterface
      */
     public function castEntityFromDTO($DTO, $entity = null): Product
     {
+        // TODO: ошибка в нейминге переменной.
         /** @var Product $party */
         $product = $entity ?? new Product();
 

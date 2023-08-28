@@ -19,7 +19,6 @@ final class Version20230809155057 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SEQUENCE guest_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE payment_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE product_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
@@ -58,6 +57,7 @@ final class Version20230809155057 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
+        // TODO: удаление создания дефолтной схемы public.
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SCHEMA public');
         $this->addSql('DROP SEQUENCE guest_id_seq CASCADE');

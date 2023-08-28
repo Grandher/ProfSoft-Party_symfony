@@ -11,7 +11,7 @@ services:
       - POSTGRES_USER=${POSTGRES_USER:-postgres}
       - POSTGRES_HOST=${POSTGRES_HOST:-postgres}
     ports:
-      - '5432:5432'    
+      - '5466:5432'
     volumes:
       - ./postgres:/var/lib/postgres
     networks:
@@ -56,4 +56,3 @@ services:
 networks:
   report:
     external: false
-

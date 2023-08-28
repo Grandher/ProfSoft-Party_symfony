@@ -18,6 +18,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    // TODO: убрать = null и добавить readonly.
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
@@ -47,6 +48,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Payment::class)]
     private Collection $payments;
 
+    // TODO: добавление роли пользователя в конструкторе.
     public function __construct()
     {
         $this->guests = new ArrayCollection();
@@ -89,6 +91,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
+        // TODO: а здесь убрать.
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 

@@ -5,10 +5,11 @@ namespace App\Helper\DTO\Response;
 use App\Entity\Product;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+// TODO: comment readonly
 final class ProductResponseDTO
 {
     #[Groups(['getList'])]
-    public int $id;
+    public readonly int $id;
 
     #[Groups(['getList'])]
     public string $name;

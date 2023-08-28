@@ -1,0 +1,15 @@
+/postgres
+/.idea/
+/.env.local
+/app/.env.local
+/app/.env.local.php
+/app/.env.*.local
+/app/public/bundles/
+/app/var/
+/app/vendor/
+/app/node_modules/
+/app/public/build/
+/app/npm-debug.log
+/app/.phpunit.result.cache
+/app/phpunit.xml
+/app/public/uploads/
